@@ -5,46 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Interaktywne drzewo genealogiczne rodu Majkowskich herbu Kościesza – od Majk-Tykiewek do Chodkowo Załogi.">
 <title>Kierz Majkowskich</title>
-<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-/* Layout: one-screen archive desk — pannable tree with generation columns (V–XV) on the left, person record sheet on the right (bottom sheet on phones). */
-:root{
-  --paper:#E9ECE6; --card:#FAFBF7; --ink:#1D262C; --muted:#5E6A70; --line:#C5CCC4;
-  --accent:#2C4F80; --accent-soft:#DCE5F1; --moss:#47663A; --moss-soft:#DDE8D3; --shadow:0 1px 2px rgba(29,38,44,.08),0 6px 24px rgba(29,38,44,.07);
-  --display:"Spectral",Georgia,"Times New Roman",serif;
-  --ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
-  color-scheme:light;
-}
 html,body{height:100%}
-body{background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:14px;overflow:hidden}
-*{box-sizing:border-box}
-button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-
-.app{height:100%;display:grid;grid-template-rows:auto 1fr;}
-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper);position:relative;z-index:5}
-.brand{display:flex;flex-direction:column;min-width:0}
-.brand h1{font-family:var(--display);font-weight:600;font-size:22px;margin:0;letter-spacing:.005em;line-height:1.1}
-.brand small{color:var(--muted);font-size:12px}
-.tools{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap}
-.search{position:relative}
-.search input{width:min(300px,62vw);padding:8px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;font:inherit}
-.results{position:absolute;right:0;top:calc(100% + 4px);width:min(380px,92vw);max-height:60vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:4px}
-.results button{display:block;width:100%;text-align:left;background:none;border:0;padding:8px 10px;border-radius:5px;cursor:pointer}
-.results button:hover,.results button.on{background:var(--accent-soft)}
-.results .yr{color:var(--muted);font-family:var(--mono);font-size:12px;margin-left:6px}
-.results .snip{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.results mark{background:var(--accent-soft);color:var(--ink)}
-.results .sec{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 10px 4px}
-.btn{border:1px solid var(--line);background:var(--card);padding:7px 12px;border-radius:6px;cursor:pointer;white-space:nowrap}
-.btn:hover{border-color:var(--accent)}
-
-main{position:relative;display:grid;grid-template-columns:1fr minmax(340px,420px);min-height:0}
+body{overflow:hidden}
+.app{height:100%;display:grid;grid-template-rows:auto 1fr}
+main{position:relative;display:grid;grid-template-columns:1fr minmax(340px,440px);min-height:0}
 #stage{position:relative;overflow:hidden;min-width:0;cursor:grab}
 #stage:active{cursor:grabbing}
 #stage svg{display:block;width:100%;height:100%}
@@ -80,31 +49,26 @@ aside{border-left:1px solid var(--line);background:var(--card);overflow:auto;min
 .facts dd{margin:0;min-width:0}
 .facts .mono{font-family:var(--mono);font-size:13px}
 .note{font-family:var(--display);font-style:italic;font-size:16px;line-height:1.45;border-left:2px solid var(--moss);padding-left:12px;margin:0}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:4px 10px;cursor:pointer;font-size:13px}
-.chip:hover{border-color:var(--accent)}
-.chip span{color:var(--muted);font-family:var(--mono);font-size:11px;margin-left:4px}
-h3{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:600}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px}
-.gallery button{padding:0;border:1px solid var(--line);background:var(--paper);border-radius:4px;overflow:hidden;aspect-ratio:1;cursor:zoom-in}
-.gallery img{width:100%;height:100%;object-fit:cover;display:block}
-.bio{font-family:var(--display);font-size:15.5px;line-height:1.6;max-width:65ch}
-.bio p{margin:0 0 .8em}
-.bio.clamped{max-height:340px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.feature{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--moss);background:var(--moss-soft);border-radius:8px;text-decoration:none;color:var(--ink)}
+.feature img{width:56px;height:72px;object-fit:cover;border-radius:3px}
+.feature b{font-family:var(--display);font-size:17px;display:block}
+.feature span{font-size:12.5px;color:var(--muted)}
+.sheet .prose{font-size:15.5px}
 .more{align-self:flex-start}
-.src{font-size:12px;color:var(--muted)}
-.empty{color:var(--muted);font-size:13px}
 
-.overlay{position:fixed;inset:0;background:rgba(10,14,16,.86);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px))}
-.overlay img{max-width:100%;max-height:80vh;border-radius:4px;background:#fff}
-.overlay .cap{color:#dfe3df;font-size:13px;margin-top:10px;display:flex;gap:12px;align-items:center}
-.overlay .cap button{background:none;border:1px solid #6b7478;color:#dfe3df;border-radius:6px;padding:6px 12px;cursor:pointer}
-
-.reader{position:fixed;inset:0;z-index:40;background:var(--paper);overflow:auto;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px))}
-.reader .inner{max-width:760px;margin:0 auto;padding-block:16px 60px;display:flex;flex-direction:column;gap:22px}
-.reader h2{font-family:var(--display);font-size:32px;margin:0;font-weight:600}
-.reader .close{position:sticky;top:0;align-self:flex-end;z-index:2}
-.reader .gallery{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+/* stories view */
+#stories{position:absolute;inset:0;background:var(--paper);overflow:auto;z-index:4}
+.st-wrap{max-width:1100px;margin:0 auto;padding:20px 16px 80px;display:grid;grid-template-columns:240px 1fr;gap:32px}
+.st-tabs{position:sticky;top:12px;align-self:start;display:flex;flex-direction:column;gap:2px}
+.st-tabs h3{margin:0 0 8px 10px}
+.st-tabs button{text-align:left;border:0;background:none;padding:9px 10px;border-radius:6px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.st-tabs button:hover{background:var(--card)}
+.st-tabs button.on{background:var(--card);box-shadow:inset 3px 0 0 var(--moss)}
+.st-tabs b{font-family:var(--display);font-size:15.5px;font-weight:600}
+.st-tabs small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.st-body{min-width:0;display:flex;flex-direction:column;gap:16px}
+.st-body h2{font-family:var(--display);font-size:34px;font-weight:600;margin:0;line-height:1.1;text-wrap:balance}
+.st-body .lead{font-family:var(--display);font-style:italic;font-size:18px;color:var(--muted);margin:0;max-width:60ch}
 
 @media (max-width:820px){
   main{grid-template-columns:1fr}
@@ -114,24 +78,32 @@ h3{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted
   .zoombar{bottom:auto;top:12px}
   .legend{display:none}
   .brand small{display:none}
+  .st-wrap{grid-template-columns:1fr;gap:16px}
+  .st-tabs{position:static;flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:4px}
+  .st-tabs h3{display:none}
+  .st-tabs button{flex:0 0 auto;max-width:220px;border:1px solid var(--line);background:var(--card)}
+  .st-body h2{font-size:28px}
 }
 .grab{display:none;width:44px;height:5px;border-radius:3px;background:var(--line);margin:8px auto 0;border:0;padding:0;cursor:pointer}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <div class="brand">
+  <header class="top">
+    <a class="brand" href="./">
       <h1>Kierz Majkowskich</h1>
       <small>Od Majk-Tykiewek do Chodkowo Załogi · herb Kościesza · opr. Lech Andrzej Majkowski</small>
-    </div>
+    </a>
+    <nav class="nav" aria-label="Widoki">
+      <button id="navTree" class="on">Drzewo</button>
+      <button id="navStories">Historie</button>
+      <a href="jozef.html">o. Józef Majkowski</a>
+    </nav>
     <div class="tools">
       <div class="search">
         <input id="q" type="search" placeholder="Szukaj osoby lub słowa w opisach…" autocomplete="off" aria-label="Szukaj">
         <div class="results" id="results" hidden></div>
       </div>
-      <button class="btn" id="readBtn">Historia rodu</button>
     </div>
   </header>
   <main>
@@ -146,18 +118,25 @@ h3{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted
       </div>
     </div>
     <aside id="panel"><button class="grab" id="grab" aria-label="Zwiń lub rozwiń kartę"></button><div class="sheet" id="sheet"></div></aside>
+    <section id="stories" hidden aria-label="Historie rodzinne">
+      <div class="st-wrap">
+        <nav class="st-tabs" id="stTabs"><h3>Historie</h3></nav>
+        <article class="st-body" id="stBody"></article>
+      </div>
+    </section>
   </main>
 </div>
-<div class="overlay" id="lb" hidden><img id="lbimg" alt=""><div class="cap"><span id="lbcap"></span><button id="lbprev">←</button><button id="lbnext">→</button><button id="lbclose">Zamknij</button></div></div>
-<div class="reader" id="reader" hidden></div>
 
 <script src="data.js"></script>
 <script src="vendor/d3.min.js"></script>
+<script src="assets/common.js"></script>
 <script>
-const F = window.FAMILY;
+const F = window.FAMILY, esc = KM.esc;
+const START_HASH = location.hash.slice(1);
 const P = F.people, byId = {};
 P.forEach(p => { byId[p.id] = p; p.kids = []; });
 P.forEach(p => { if (p.parent) byId[p.parent].kids.push(p); });
+const S = F.stories, storyById = {}; S.forEach(s => storyById[s.id] = s);
 const ROMAN = ['', 'I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI'];
 const yr = s => { const m = (s||'').match(/(1[5-9]\d\d|20[0-3]\d)/g); return m ? m[0] : ''; };
 const place = s => (s||'').replace(/^(ok\.\s*)?[\d.–\-\s]+/, '').replace(/^(prawdopodobnie|między|przed|po)\b.*$/,'').trim();
@@ -171,8 +150,8 @@ function years(p){
   if (p.died) return '†';
   return '';
 }
-const esc = s => (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function ancestors(p){ const a=[]; let c=p; while(c){ a.unshift(c); c = c.parent ? byId[c.parent] : null; } return a; }
+const JOZEF_ID = '73';
 
 /* ---------- tree ---------- */
 const NW = 214, NH = 46, DX = 56, DY = 272;
@@ -185,25 +164,20 @@ const gLink = gAll.append('g');
 const gNode = gAll.append('g');
 const zoom = d3.zoom().scaleExtent([0.15, 2.2]).on('zoom', e => gAll.attr('transform', e.transform));
 svg.call(zoom).on('dblclick.zoom', null);
-
-let selected = null;
+let selected = null, hits = new Set();
 try { selected = byId[localStorage.getItem('kierz-sel')] || null; } catch(e) {}
 if (!selected) selected = byId['65'];
 
-function layout(){
-  d3.tree().nodeSize([DX, DY]).separation((a,b) => a.parent === b.parent ? 1 : 1.25)(root);
-}
 function render(){
-  layout();
+  d3.tree().nodeSize([DX, DY]).separation((a,b) => a.parent === b.parent ? 1 : 1.25)(root);
   const nodes = root.descendants(), links = root.links();
   const path = new Set(ancestors(selected).map(p => p.id));
   const [y0, y1] = d3.extent(nodes, d => d.x);
   const depths = d3.max(nodes, d => d.depth);
   gHead.selectAll('*').remove();
   for (let i = 0; i <= depths; i++){
-    const x = i*DY;
-    gHead.append('text').attr('x', x).attr('y', y0 - 52).text(`${ROMAN[i+5]} pokolenie`);
-    gHead.append('line').attr('x1', x - 14).attr('x2', x - 14).attr('y1', y0 - 40).attr('y2', y1 + 40);
+    gHead.append('text').attr('x', i*DY).attr('y', y0 - 52).text(`${ROMAN[i+5]} pokolenie`);
+    gHead.append('line').attr('x1', i*DY - 14).attr('x2', i*DY - 14).attr('y1', y0 - 40).attr('y2', y1 + 40);
   }
   gLink.selectAll('path').data(links, d => d.target.data.id).join('path')
     .attr('class', d => 'link' + (path.has(d.target.data.id) ? ' path' : ''))
@@ -215,11 +189,10 @@ function render(){
     n.append('text').attr('class','yr').attr('x', 12).attr('y', 14);
     n.append('circle').attr('class','dot').attr('r', 3).attr('cx', NW - 12).attr('cy', -12);
     const t = n.append('g').attr('class','tog').attr('transform', `translate(${NW},0)`);
-    t.append('circle').attr('r', 9);
-    t.append('text');
+    t.append('circle').attr('r', 9); t.append('text');
     n.on('click', (e, d) => select(d.data, false));
     n.on('keydown', (e, d) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(d.data, false); } });
-    t.on('click', (e, d) => { e.stopPropagation(); toggle(d); });
+    t.on('click', (e, d) => { e.stopPropagation(); d.children = d.children ? null : d._kids; render(); });
     return n;
   });
   g.attr('transform', d => `translate(${d.y},${d.x})`)
@@ -227,26 +200,22 @@ function render(){
    .attr('aria-label', d => `${d.data.name} ${years(d.data)}`);
   g.select('text.nm').text(d => trunc(d.data.name, 27));
   g.select('text.yr').text(d => { const pl = place(d.data.born); return years(d.data) + (pl ? ' · ' + trunc(pl, 18) : ''); });
-  g.select('circle.dot').attr('display', d => (d.data.bio || d.data.imgs.length) ? null : 'none');
+  g.select('circle.dot').attr('display', d => (d.data.bio.length || d.data.imgs.length) ? null : 'none');
   g.select('g.tog').attr('display', d => d._kids ? null : 'none');
   g.select('g.tog text').text(d => d.children ? '−' : '+' + (d._kids ? d._kids.length : ''));
   g.select('g.tog circle').attr('r', d => d.children ? 9 : 12);
 }
 function trunc(s, n){ return s.length > n ? s.slice(0, n-1) + '…' : s; }
-function toggle(d){ d.children = d.children ? null : d._kids; render(); }
 function expandTo(p){
   const anc = new Set(ancestors(p));
-  root.each(d => { if (!d.children && d._kids && anc.has(d.data) && d.data !== p) d.children = d._kids; });
-  // parents opened top-down: one more pass covers newly visible nodes
-  root.each(d => { if (!d.children && d._kids && anc.has(d.data) && d.data !== p) d.children = d._kids; });
+  for (let k = 0; k < 2; k++) root.each(d => { if (!d.children && d._kids && anc.has(d.data) && d.data !== p) d.children = d._kids; });
 }
 function nodeOf(p){ return root.descendants().find(d => d.data === p); }
 function centerOn(p, scale){
   const n = nodeOf(p); if (!n) return;
   const el = document.getElementById('stage'), w = el.clientWidth, h = el.clientHeight;
-  const narrow = innerWidth <= 820;
   const k = scale || Math.max(d3.zoomTransform(svg.node()).k, 0.8);
-  const cy = narrow ? h * 0.25 : h / 2;
+  const cy = innerWidth <= 820 ? h * 0.25 : h / 2;
   svg.transition().duration(matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 550)
     .call(zoom.transform, d3.zoomIdentity.translate(w/2 - (n.y + NW/2)*k, cy - n.x*k).scale(k));
 }
@@ -257,62 +226,45 @@ function fitAll(){
   svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(w/2 - (b.x + b.width/2)*k, h/2 - (b.y + b.height/2)*k).scale(k));
 }
 
-/* ---------- panel ---------- */
-function paragraphs(t){
-  t = t.replace(/^Ad [IVX]+(\/[\w.]+)?\.?\s*/, '').replace(/[.…]{5,}/g, '…').replace(/(…\s*){2,}/g, '… ');
-  const lines = t.split('\n'); let out = [], cur = '';
-  for (const l0 of lines){
-    const l = l0.trim();
-    if (!l){ if (cur) out.push(cur), cur=''; continue; }
-    if (/^\*{3,}$/.test(l)){ if (cur) out.push(cur); cur=''; continue; }
-    if (cur && /[.:!?”"]$/.test(cur) && /^[A-ZŁŚŻŹĆÓ„(\d]/.test(l) && cur.length > 60) { out.push(cur); cur = l; }
-    else cur = cur ? (cur.endsWith('-') && !cur.endsWith(' -') ? cur.slice(0,-1) + l : cur + ' ' + l) : l;
-  }
-  if (cur) out.push(cur);
-  return out.map(x => `<p>${esc(x)}</p>`).join('');
-}
+/* ---------- person card ---------- */
 function pagesLabel(pg){ if (!pg || !pg.length) return ''; const a = pg[0], b = pg[pg.length-1]; return a === b ? `str. ${a}` : `str. ${a}–${b}`; }
-function gallery(imgs, title){
-  if (!imgs.length) return '';
-  return `<section><h3>${title} · ${imgs.length}</h3><div class="gallery">${imgs.map((im,i) =>
-    `<button data-g="${i}" aria-label="Zdjęcie ze str. ${im[3]}"><img loading="lazy" src="img/${im[0]}" alt="Zdjęcie ze str. ${im[3]} opracowania"></button>`).join('')}</div></section>`;
-}
-let curImgs = [];
 function select(p, center = true){
+  showTree();
   selected = p;
   try { localStorage.setItem('kierz-sel', p.id); } catch(e) {}
   expandTo(p); render();
   if (center) centerOn(p);
-  const anc = ancestors(p);
-  const par = p.parent ? byId[p.parent] : null;
+  const anc = ancestors(p), par = p.parent ? byId[p.parent] : null;
   const sibs = par ? par.kids.filter(k => k !== p) : [];
   const crumbs = anc.slice(0, -1).map(a => `<button data-id="${a.id}">${esc(a.name.replace(/-Gradowaty/,''))}</button>`).join(' › ');
   const chip = k => `<button class="chip" data-id="${k.id}">${esc(k.name)}<span>${years(k)}</span></button>`;
-  const born = p.born ? esc(p.born) : '<span class="empty">brak danych</span>';
+  const bioLen = p.bio.join(' ').length;
   const s = document.getElementById('sheet');
-  curImgs = p.imgs;
   s.innerHTML = `
     ${crumbs ? `<div class="crumbs">${crumbs}</div>` : ''}
     <div class="who">
-      <div class="gen">${ROMAN[p.gen]} pokolenie${p.id.match(/^\d+$/) ? ` · nr ${p.id} w „drabince”` : ''}</div>
+      <div class="gen">${ROMAN[p.gen]} pokolenie${/^\d+$/.test(p.id) ? ` · nr ${p.id} w „drabince”` : ''}</div>
       <h2>${esc(p.name)}</h2>
     </div>
     <dl class="facts">
-      <dt>Urodz.</dt><dd class="mono">${born}</dd>
+      <dt>Urodz.</dt><dd class="mono">${p.born ? esc(p.born) : '<span class="empty">brak danych</span>'}</dd>
       ${p.died ? `<dt>Zm.</dt><dd class="mono">${esc(p.died)}</dd>` : ''}
       ${p.spouse ? `<dt>Małż.</dt><dd>${esc(p.spouse)}</dd>` : ''}
       ${par ? `<dt>Rodzic</dt><dd><button class="chip" data-id="${par.id}">${esc(par.name)}${par.spouse ? ' i ' + esc(par.spouse.replace(/^1\)\s*/,'').split(/,|;| 2\)| \(/)[0]) : ''}</button></dd>` : ''}
     </dl>
     ${p.note ? `<p class="note">${esc(p.note)}</p>` : ''}
+    ${p.id === JOZEF_ID ? `<a class="feature" href="jozef.html"><img src="img/p076_01.webp" alt=""><div><b>Podstrona o. Józefa</b><span>Księga pamiątkowa, życiorys, zdjęcia, pieśni i nagrania</span></div></a>` : ''}
+    ${p.stories.length ? `<section><h3>Historie z udziałem tej osoby</h3><div class="chips">${p.stories.map(id => `<button class="chip story" data-story="${id}">${esc(storyById[id].title)}</button>`).join('')}</div></section>` : ''}
     ${p.kids.length ? `<section><h3>Dzieci · ${p.kids.length}</h3><div class="chips">${p.kids.map(chip).join('')}</div></section>` : ''}
     ${sibs.length ? `<section><h3>Rodzeństwo · ${sibs.length}</h3><div class="chips">${sibs.map(chip).join('')}</div></section>` : ''}
-    ${gallery(p.imgs, `Zdjęcia i dokumenty z tej części opracowania`)}
-    ${p.bio ? `<section><h3>Z opracowania · ${pagesLabel(p.pages)}</h3><div class="bio ${p.bio.length > 1600 ? 'clamped' : ''}" id="bio">${paragraphs(p.bio)}</div>
-      ${p.bio.length > 1600 ? `<button class="btn more" id="more">Czytaj całość (${Math.round(p.bio.length/1800)} str.)</button>` : ''}</section>`
+    ${p.imgs.length ? `<section id="gal"><h3>Zdjęcia · ${p.imgs.length}</h3>${KM.gallery(p.imgs)}</section>` : ''}
+    ${p.bio.length ? `<section><h3>Z opracowania · ${pagesLabel(p.pages)}</h3><div class="prose ${bioLen > 1800 ? 'clamped' : ''}" id="bio">${p.bio.map(t => `<p>${esc(t)}</p>`).join('')}</div>
+      ${bioLen > 1800 ? `<button class="btn more" id="more">Czytaj całość</button>` : ''}</section>`
       : `<p class="empty">Opracowanie nie zawiera osobnego opisu tej osoby poza danymi w „drabince”.</p>`}
   `;
   s.querySelectorAll('[data-id]').forEach(b => b.onclick = () => select(byId[b.dataset.id]));
-  s.querySelectorAll('[data-g]').forEach(b => b.onclick = () => openLb(curImgs, +b.dataset.g));
+  s.querySelectorAll('[data-story]').forEach(b => b.onclick = () => openStory(b.dataset.story));
+  const gal = document.getElementById('gal'); if (gal) KM.bindGallery(gal, p.imgs);
   const more = document.getElementById('more');
   if (more) more.onclick = () => { document.getElementById('bio').classList.remove('clamped'); more.remove(); };
   document.getElementById('panel').scrollTop = 0;
@@ -320,63 +272,71 @@ function select(p, center = true){
 }
 document.getElementById('grab').onclick = () => document.getElementById('panel').classList.toggle('min');
 
-/* ---------- lightbox ---------- */
-let lbList = [], lbI = 0;
-const lb = document.getElementById('lb');
-function openLb(list, i){ lbList = list; lbI = i; showLb(); lb.hidden = false; document.getElementById('lbclose').focus(); }
-function showLb(){ const im = lbList[lbI]; document.getElementById('lbimg').src = 'img/' + im[0]; document.getElementById('lbcap').textContent = `str. ${im[3]} opracowania · ${lbI+1} z ${lbList.length}`; }
-document.getElementById('lbclose').onclick = () => lb.hidden = true;
-document.getElementById('lbprev').onclick = () => { lbI = (lbI - 1 + lbList.length) % lbList.length; showLb(); };
-document.getElementById('lbnext').onclick = () => { lbI = (lbI + 1) % lbList.length; showLb(); };
-lb.addEventListener('click', e => { if (e.target === lb) lb.hidden = true; });
-addEventListener('keydown', e => {
-  if (!lb.hidden){ if (e.key === 'Escape') lb.hidden = true; if (e.key === 'ArrowLeft') document.getElementById('lbprev').click(); if (e.key === 'ArrowRight') document.getElementById('lbnext').click(); return; }
-  if (!reader.hidden && e.key === 'Escape') reader.hidden = true;
+/* ---------- stories ---------- */
+const stEl = document.getElementById('stories');
+const tabs = document.getElementById('stTabs');
+S.forEach(s => {
+  const b = document.createElement('button');
+  b.dataset.story = s.id;
+  b.innerHTML = `<b>${esc(s.title)}</b><small>str. ${s.pages[0]}–${s.pages[1]}</small>`;
+  b.onclick = () => openStory(s.id);
+  tabs.appendChild(b);
 });
-
-/* ---------- reader ---------- */
-const reader = document.getElementById('reader');
-document.getElementById('readBtn').onclick = () => {
-  reader.innerHTML = `<div class="inner"><button class="btn close" id="rclose">Wróć do drzewa</button>
-    <h2>Historia rodu</h2>
-    <p class="src">Wstęp opracowania (str. 1–7) i posłowie braci Janusza Kazimierza, Lecha Andrzeja i Tadeusza Wiktora Majkowskich (${pagesLabel(F.epilog.pages)}).</p>
-    ${gallery(F.intro.imgs, 'Fotografie ze wstępu')}
-    <div class="bio">${paragraphs(F.intro.text)}</div>
-    <h2>Posłowie</h2>
-    <div class="bio">${paragraphs(F.epilog.text)}</div>
-    ${gallery(F.epilog.imgs, 'Fotografie z posłowia')}
-  </div>`;
-  reader.hidden = false; reader.scrollTop = 0;
-  document.getElementById('rclose').onclick = () => reader.hidden = true;
-  const gs = reader.querySelectorAll('.gallery');
-  const lists = [F.intro.imgs, F.epilog.imgs];
-  gs.forEach((g, gi) => g.querySelectorAll('[data-g]').forEach(b => b.onclick = () => openLb(lists[gi], +b.dataset.g)));
-};
+function openStory(id){
+  const s = storyById[id] || S[0];
+  stEl.hidden = false;
+  document.getElementById('navStories').classList.add('on');
+  document.getElementById('navTree').classList.remove('on');
+  tabs.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.story === s.id));
+  const r = KM.renderBlocks(s.blocks, 'str.');
+  const body = document.getElementById('stBody');
+  body.innerHTML = `
+    <h2>${esc(s.title)}</h2>
+    <p class="lead">${esc(s.lead)}</p>
+    <p class="src">Z opracowania „KIERZ rodziny od Majk-Tykiewek do Chodkowo Załogi”, str. ${s.pages[0]}–${s.pages[1]}.</p>
+    ${s.people.length ? `<div class="chips">${s.people.map(pid => `<button class="chip" data-id="${pid}">${esc(byId[pid].name)}<span>${years(byId[pid])}</span></button>`).join('')}${s.id === 'jozef' ? '<a class="chip story" href="jozef.html">Podstrona o. Józefa →</a>' : ''}</div>` : ''}
+    <div class="prose">${r.html}</div>`;
+  body.querySelectorAll('[data-id]').forEach(b => b.onclick = () => select(byId[b.dataset.id]));
+  KM.bindFlow(body, r.imgs);
+  stEl.scrollTop = 0;
+  try { history.replaceState(null, '', '#' + s.id); } catch(e) {}
+}
+function showTree(){
+  stEl.hidden = true;
+  document.getElementById('navStories').classList.remove('on');
+  document.getElementById('navTree').classList.add('on');
+  try { if (location.hash) history.replaceState(null, '', location.pathname); } catch(e) {}
+}
+document.getElementById('navStories').onclick = () => openStory(S[0].id);
+document.getElementById('navTree').onclick = showTree;
 
 /* ---------- search ---------- */
 const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ł/g,'l');
-P.forEach(p => { p._n = norm(p.name + ' ' + (p.spouse||'')); p._b = norm(p.bio); });
-let hits = new Set();
+P.forEach(p => { p._n = norm(p.name + ' ' + (p.spouse||'')); p._raw = p.bio.join(' '); p._b = norm(p._raw); });
+S.forEach(s => { s._raw = s.blocks.map(b => b.p || '').join(' '); s._b = norm(s._raw); });
 const q = document.getElementById('q'), res = document.getElementById('results');
 let resIdx = -1;
+function snippet(raw, t){
+  const ri = norm(raw).indexOf(t); if (ri < 0) return '';
+  const a = Math.max(0, ri - 50), sn = raw.slice(a, ri + t.length + 60), k = ri - a;
+  return `…${esc(sn.slice(0,k))}<mark>${esc(sn.slice(k,k+t.length))}</mark>${esc(sn.slice(k+t.length))}…`;
+}
 q.addEventListener('input', () => {
   const t = norm(q.value.trim());
   if (t.length < 2){ res.hidden = true; hits = new Set(); render(); return; }
   const words = t.split(/\s+/);
   const byName = P.filter(p => words.every(w => p._n.includes(w)));
-  const byBio = P.filter(p => !byName.includes(p) && p._b.includes(t)).slice(0, 12);
+  const byBio = P.filter(p => !byName.includes(p) && p._b.includes(t)).slice(0, 10);
+  const inStories = S.filter(s => s._b.includes(t));
   hits = new Set(byName.map(p => p.id)); render();
   let html = '';
   if (byName.length) html += `<div class="sec">Osoby · ${byName.length}</div>` + byName.slice(0, 30).map(p => `<button data-id="${p.id}">${esc(p.name)}<span class="yr">${years(p)}</span></button>`).join('');
-  if (byBio.length) html += `<div class="sec">Wzmianki w opisach</div>` + byBio.map(p => {
-    const i = p._b.indexOf(t), raw = p.bio.replace(/\s+/g,' '); const ri = norm(raw).indexOf(t);
-    const a = Math.max(0, ri - 50), snip = raw.slice(a, ri + t.length + 60);
-    const k = ri - a;
-    return `<button data-id="${p.id}">${esc(p.name)}<span class="yr">${years(p)}</span><span class="snip">…${esc(snip.slice(0,k))}<mark>${esc(snip.slice(k,k+t.length))}</mark>${esc(snip.slice(k+t.length))}…</span></button>`;
-  }).join('');
+  if (inStories.length) html += `<div class="sec">W historiach</div>` + inStories.map(s => `<button data-story="${s.id}">${esc(s.title)}<span class="snip">${snippet(s._raw, t)}</span></button>`).join('');
+  if (byBio.length) html += `<div class="sec">Wzmianki w opisach osób</div>` + byBio.map(p => `<button data-id="${p.id}">${esc(p.name)}<span class="yr">${years(p)}</span><span class="snip">${snippet(p._raw, t)}</span></button>`).join('');
   res.innerHTML = html || '<div class="sec">Brak wyników</div>';
   res.hidden = false; resIdx = -1;
   res.querySelectorAll('[data-id]').forEach(b => b.onclick = () => { res.hidden = true; select(byId[b.dataset.id]); });
+  res.querySelectorAll('[data-story]').forEach(b => b.onclick = () => { res.hidden = true; openStory(b.dataset.story); });
 });
 q.addEventListener('keydown', e => {
   const items = [...res.querySelectorAll('button')];
@@ -386,7 +346,6 @@ q.addEventListener('keydown', e => {
 });
 document.addEventListener('click', e => { if (!e.target.closest('.search')) res.hidden = true; });
 
-/* ---------- zoom buttons ---------- */
 document.getElementById('zin').onclick = () => svg.transition().call(zoom.scaleBy, 1.3);
 document.getElementById('zout').onclick = () => svg.transition().call(zoom.scaleBy, 1/1.3);
 document.getElementById('zfit').onclick = fitAll;
@@ -396,7 +355,8 @@ document.getElementById('zsel').onclick = () => centerOn(selected);
 render();
 select(selected, false);
 requestAnimationFrame(() => centerOn(selected, 0.85));
+const h = START_HASH;
+if (h === 'historie') openStory(S[0].id); else if (storyById[h]) openStory(h);
 </script>
-
 </body>
 </html>
