@@ -129,6 +129,7 @@ aside{border-left:1px solid var(--line);background:var(--card);overflow:auto;min
 </div>
 
 <script src="data.js"></script>
+<script src="extras.js"></script>
 <script src="vendor/d3.min.js"></script>
 <script src="assets/common.js"></script>
 <script>
@@ -279,7 +280,7 @@ const tabs = document.getElementById('stTabs');
 S.forEach(s => {
   const b = document.createElement('button');
   b.dataset.story = s.id;
-  b.innerHTML = `<b>${esc(s.title)}</b><small>str. ${s.pages[0]}–${s.pages[1]}</small>`;
+  b.innerHTML = `<b>${esc(s.title)}</b><small>${s.date ? esc(s.date) : `str. ${s.pages[0]}–${s.pages[1]}`}</small>`;
   b.onclick = () => openStory(s.id);
   tabs.appendChild(b);
 });
@@ -294,7 +295,7 @@ function openStory(id){
   body.innerHTML = `
     <h2>${esc(s.title)}</h2>
     <p class="lead">${esc(s.lead)}</p>
-    <p class="src">Z opracowania „KIERZ rodziny od Majk-Tykiewek do Chodkowo Załogi”, str. ${s.pages[0]}–${s.pages[1]}.</p>
+    <p class="src">${s.date ? `Zdjęcia z ${esc(s.date)} r., spoza opracowania.` : `Z opracowania „KIERZ rodziny od Majk-Tykiewek do Chodkowo Załogi”, str. ${s.pages[0]}–${s.pages[1]}.`}</p>
     ${s.people.length ? `<div class="chips">${s.people.map(pid => `<button class="chip" data-id="${pid}">${esc(byId[pid].name)}<span>${years(byId[pid])}</span></button>`).join('')}${s.id === 'jozef' ? '<a class="chip story" href="jozef.html">Podstrona o. Józefa →</a>' : ''}</div>` : ''}
     <div class="prose">${r.html}</div>`;
   body.querySelectorAll('[data-id]').forEach(b => b.onclick = () => select(byId[b.dataset.id]));

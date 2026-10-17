@@ -18,6 +18,7 @@ Interaktywne drzewo genealogiczne rodu Majkowskich herbu Kościesza: od Majk-Tyk
 
 - `data.js`: osoby, opisy i historie z opracowania
 - `jozef-data.js`: tekst Księgi pamiątkowej
+- `extras.js`: dodatki spoza opracowania (zdjęcia z 17.10.2026 z cmentarza w Płoniawach i z Załóg, w `img/c/`), dopisywane do kart osób i jako historia „Płoniawy i Załogi, 2026”
 - `img/`: zdjęcia z opracowania (nazwa = numer strony oryginału), `img/k/`: zdjęcia z Księgi
 - `assets/`: wspólne style i skrypty
 - `vendor/d3.min.js`: biblioteka D3 v7.8.5 (licencja ISC, `vendor/d3-LICENSE.txt`)

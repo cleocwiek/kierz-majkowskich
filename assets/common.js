@@ -24,9 +24,9 @@
   function show() {
     const r = list[idx];
     lb.querySelector('img').src = src(r);
-    lb.querySelector('img').alt = capText(r) || `Zdjęcie ze str. ${r[3]}`;
+    lb.querySelector('img').alt = capText(r) || 'Zdjęcie';
     lb.querySelector('.cap').textContent = capText(r);
-    lb.querySelector('.n').textContent = `${idx + 1} z ${list.length} · str. ${r[3]}${r[0].startsWith('k/') ? ' Księgi' : ' opracowania'}`;
+    lb.querySelector('.n').textContent = `${idx + 1} z ${list.length}` + (r[3] ? ` · str. ${r[3]}${r[0].startsWith('k/') ? ' Księgi' : ' opracowania'}` : '');
   }
   function step(d) { idx = (idx + d + list.length) % list.length; show(); }
   function close() { lb.hidden = true; }
@@ -34,7 +34,7 @@
 
   /* ---------- gallery with captions ---------- */
   function gallery(imgs) {
-    return `<div class="gallery">${imgs.map((r, i) => `<figure><button data-g="${i}" aria-label="Powiększ: ${esc(capText(r) || 'zdjęcie ze str. ' + r[3])}"><img loading="lazy" src="${src(r)}" alt="${esc(capText(r))}"></button>${capText(r) ? `<figcaption>${esc(capText(r))}</figcaption>` : ''}</figure>`).join('')}</div>`;
+    return `<div class="gallery">${imgs.map((r, i) => `<figure><button data-g="${i}" aria-label="Powiększ: ${esc(capText(r) || 'zdjęcie')}"><img loading="lazy" src="${src(r)}" alt="${esc(capText(r))}"></button>${capText(r) ? `<figcaption>${esc(capText(r))}</figcaption>` : ''}</figure>`).join('')}</div>`;
   }
   function bindGallery(root, imgs) {
     root.querySelectorAll('[data-g]').forEach(b => b.onclick = () => open(imgs, +b.dataset.g));
@@ -56,12 +56,12 @@
     for (const b of blocks) {
       if (b.img) {
         const pg = b.img[3];
-        if (pg !== lastPg && !run.length) { html += `<span class="pg">${pageLabel} ${pg}</span>`; lastPg = pg; }
+        if (pg && pg !== lastPg && !run.length) { html += `<span class="pg">${pageLabel} ${pg}</span>`; lastPg = pg; }
         run.push(figure(b.img, imgs.length)); imgs.push(b.img);
         continue;
       }
       flush();
-      if (b.pg !== lastPg) { html += `<span class="pg">${pageLabel} ${b.pg}</span>`; lastPg = b.pg; }
+      if (b.pg && b.pg !== lastPg) { html += `<span class="pg">${pageLabel} ${b.pg}</span>`; lastPg = b.pg; }
       html += `<p>${esc(b.p)}</p>`;
     }
     flush();
