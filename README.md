@@ -11,6 +11,7 @@ Interaktywne drzewo genealogiczne rodu Majkowskich herbu Kościesza: od Majk-Tyk
 ## Strony
 
 - `index.html`: drzewo, karty osób (dane, zdjęcia z podpisami, opis z opracowania), wyszukiwarka i zakładka **Historie** z dłuższymi opowieściami (adresy `#rod`, `#zalogi`, `#boles`, `#jozef`, `#kakowscy`, `#poslowie`).
+- `pobierz.html`: pliki do druku: książeczka A4 (14 stron) i plakat A0 z całym drzewem (`pliki/`).
 - `jozef.html`: podstrona o. Józefa Majkowskiego TJ: Księga pamiątkowa z fotografiami, rozdział z opracowania, odnośniki do pieśni i nagrań.
 
 ## Pliki
