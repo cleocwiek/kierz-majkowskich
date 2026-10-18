@@ -24,6 +24,8 @@
   };
   const byId = {}; F.people.forEach(p => byId[p.id] = p);
   const add = (id, ...recs) => { const p = byId[id]; if (p) p.imgs.unshift(...recs); };
+  // Karolina Ćwiek: nowe zdjęcie zamiast zdjęcia z opracowania
+  if (byId['65']) byId['65'].imgs = [['c/karolina-cwiek.webp', 1195, 1400, 0, 'Karolina Ćwiek']];
   add('24', I.wawrzyniec);
   add('25', I.wawrzyniec);
   add('103', I.wawrzyniec);
